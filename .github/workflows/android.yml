@@ -3,8 +3,6 @@ name: Build NeuralGame APK
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
 jobs:
   build:
@@ -30,13 +28,18 @@ jobs:
         run: |
           sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0"
 
+      - name: Debug folders
+        run: ls -la
+
       - name: Make gradlew executable
-        working-directory: NeuralGame
-        run: chmod +x gradlew
+        run: |
+          cd NeuralGame
+          chmod +x gradlew
 
       - name: Build debug APK
-        working-directory: NeuralGame
-        run: ./gradlew assembleDebug
+        run: |
+          cd NeuralGame
+          ./gradlew assembleDebug
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
