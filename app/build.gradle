@@ -9,7 +9,7 @@ android {
     defaultConfig {
         applicationId "com.neuralgame.app"
         minSdk 23
-        targetSdk 34
+        targetSdk 34com.neuralgame.app
         versionCode 1
         versionName "1.0"
     }
