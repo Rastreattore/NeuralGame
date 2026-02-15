@@ -1,4 +1,4 @@
-name: Build NeuralGame APK
+name: Build APK
 
 on:
   push:
@@ -9,40 +9,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Set up JDK 17
+      - name: Set up JDK
         uses: actions/setup-java@v4
         with:
-          distribution: temurin
-          java-version: 17
-
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
-
-      - name: Accept SDK licenses
-        run: yes | sdkmanager --licenses
-
-      - name: Install SDK packages
-        run: |
-          sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0"
-
-      - name: Debug folders
-        run: ls -la
+          distribution: 'temurin'
+          java-version: '17'
 
       - name: Make gradlew executable
-        run: |
-          cd NeuralGame
-          chmod +x gradlew
+        run: chmod +x ./gradlew
 
-      - name: Build debug APK
-        run: |
-          cd NeuralGame
-          ./gradlew assembleDebug
-
-      - name: Upload APK artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: NeuralGame-debug-apk
-          path: NeuralGame/app/build/outputs/apk/debug/app-debug.apk
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug
